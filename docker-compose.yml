@@ -12,6 +12,8 @@ services:
       - postgres-db:/var/lib/postgresql/data
   back:
     container_name: hjam-back
+    depends_on:
+      - db
     build: ./hackathon-jam-back
     env_file:
       - .env
@@ -22,6 +24,8 @@ services:
     command: air ./main.go -i 0.0.0.0
   front:
     container_name: hjam-front
+    depends_on:
+      - back
     build: .
     ports:
       - '80:3000'
